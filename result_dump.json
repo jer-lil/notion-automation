@@ -1,0 +1,349 @@
+{
+    "object": "list",
+    "results": [
+        {
+            "object": "page",
+            "id": "ff587c88-34f6-4969-ba7c-0eddbc6471d7",
+            "created_time": "2022-05-20T22:39:00.000Z",
+            "last_edited_time": "2022-06-12T17:52:00.000Z",
+            "created_by": {
+                "object": "user",
+                "id": "550800d9-0287-4e8c-8329-fdffd88eb3f1"
+            },
+            "last_edited_by": {
+                "object": "user",
+                "id": "550800d9-0287-4e8c-8329-fdffd88eb3f1"
+            },
+            "cover": null,
+            "icon": null,
+            "parent": {
+                "type": "database_id",
+                "database_id": "e951bc88-1e0e-4053-a6ef-4b9202520550"
+            },
+            "archived": false,
+            "properties": {
+                "Edited": {
+                    "id": "%3A%60BZ",
+                    "type": "last_edited_time",
+                    "last_edited_time": "2022-06-12T17:52:00.000Z"
+                },
+                "Parent Due Timestamp": {
+                    "id": "%3BkdD",
+                    "type": "rollup",
+                    "rollup": {
+                        "type": "array",
+                        "array": [],
+                        "function": "show_original"
+                    }
+                },
+                "Priority": {
+                    "id": "%3E%3DOL",
+                    "type": "select",
+                    "select": {
+                        "id": "d33393d6-deb7-4d37-8141-e93e4e69c88e",
+                        "name": "\ud83d\udea8HIGH",
+                        "color": "blue"
+                    }
+                },
+                "Days (Only if Set to 1 Day(s))": {
+                    "id": "%3Ek%5Bn",
+                    "type": "multi_select",
+                    "multi_select": []
+                },
+                "Created": {
+                    "id": "A%7BvH",
+                    "type": "created_time",
+                    "created_time": "2022-05-20T22:39:00.000Z"
+                },
+                "State": {
+                    "id": "Bcwx",
+                    "type": "formula",
+                    "formula": {
+                        "type": "string",
+                        "string": "\ud83d\ude00"
+                    }
+                },
+                "Last Day Base Date": {
+                    "id": "Cvvq",
+                    "type": "formula",
+                    "formula": {
+                        "type": "date",
+                        "date": {
+                            "start": "1998-09-28T17:00:00.000+00:00",
+                            "end": null,
+                            "time_zone": null
+                        }
+                    }
+                },
+                "Divider": {
+                    "id": "C%7DrK",
+                    "type": "formula",
+                    "formula": {
+                        "type": "string",
+                        "string": "\ud83d\uded1\ud83d\uded1\ud83d\uded1\ud83d\uded1EVERYTHING BELOW HERE JUST RUNS THE TEMPLATE \ud83d\uded1\ud83d\uded1\ud83d\uded1\ud83d\uded1"
+                    }
+                },
+                "Created By": {
+                    "id": "FH%3DW",
+                    "type": "created_by",
+                    "created_by": {
+                        "object": "user",
+                        "id": "550800d9-0287-4e8c-8329-fdffd88eb3f1",
+                        "name": "Jeremiah",
+                        "avatar_url": null,
+                        "type": "person",
+                        "person": {
+                            "email": "jjlilland@gmail.com"
+                        }
+                    }
+                },
+                "Kanban - Tag": {
+                    "id": "H~vq",
+                    "type": "select",
+                    "select": null
+                },
+                "Due Timestamp": {
+                    "id": "Klvj",
+                    "type": "formula",
+                    "formula": {
+                        "type": "number",
+                        "number": 1655251200000
+                    }
+                },
+                "First Weekday Base Date": {
+                    "id": "L_Cn",
+                    "type": "formula",
+                    "formula": {
+                        "type": "date",
+                        "date": {
+                            "start": "1998-09-28T17:00:00.000+00:00",
+                            "end": null,
+                            "time_zone": null
+                        }
+                    }
+                },
+                "Due Stamp (Parent)": {
+                    "id": "Ny%40G",
+                    "type": "formula",
+                    "formula": {
+                        "type": "number",
+                        "number": 1655251200000
+                    }
+                },
+                "Parent Project": {
+                    "id": "OaC%3A",
+                    "type": "rollup",
+                    "rollup": {
+                        "type": "array",
+                        "array": [],
+                        "function": "show_original"
+                    }
+                },
+                "Cold": {
+                    "id": "P%5DbX",
+                    "type": "formula",
+                    "formula": {
+                        "type": "boolean",
+                        "boolean": false
+                    }
+                },
+                "Simplified Recur Unit": {
+                    "id": "QhdP",
+                    "type": "formula",
+                    "formula": {
+                        "type": "string",
+                        "string": "weeks"
+                    }
+                },
+                "Expected Duration (hrs)": {
+                    "id": "VO_%3D",
+                    "type": "number",
+                    "number": null
+                },
+                "Next Due": {
+                    "id": "WcB%5C",
+                    "type": "formula",
+                    "formula": {
+                        "type": "string",
+                        "string": "June 22, 2022"
+                    }
+                },
+                "Done": {
+                    "id": "_D%5ER",
+                    "type": "checkbox",
+                    "checkbox": true
+                },
+                "Type": {
+                    "id": "anYj",
+                    "type": "formula",
+                    "formula": {
+                        "type": "string",
+                        "string": "\ud83d\udd04Recurring"
+                    }
+                },
+                "Project": {
+                    "id": "a~%7Cl",
+                    "type": "relation",
+                    "relation": []
+                },
+                "Due": {
+                    "id": "bl%3D%3B",
+                    "type": "date",
+                    "date": {
+                        "start": "2022-06-15",
+                        "end": null,
+                        "time_zone": null
+                    }
+                },
+                "\u23f1 Recurring Divider": {
+                    "id": "gGr%3C",
+                    "type": "formula",
+                    "formula": {
+                        "type": "string",
+                        "string": "\ud83d\uded1\ud83d\uded1\ud83d\uded1 Helper functions for recurring tasks \ud83d\uded1\ud83d\uded1\ud83d\uded1"
+                    }
+                },
+                "Link": {
+                    "id": "m%3D_I",
+                    "type": "url",
+                    "url": null
+                },
+                "Recur Interval": {
+                    "id": "mvpx",
+                    "type": "number",
+                    "number": 1
+                },
+                "Start": {
+                    "id": "nkuw",
+                    "type": "date",
+                    "date": null
+                },
+                "Assignee": {
+                    "id": "qbq%3A",
+                    "type": "people",
+                    "people": []
+                },
+                "UTC Offset": {
+                    "id": "rvys",
+                    "type": "formula",
+                    "formula": {
+                        "type": "number",
+                        "number": -8
+                    }
+                },
+                "Recur Unit": {
+                    "id": "sFPe",
+                    "type": "select",
+                    "select": {
+                        "id": "1a17b588-5fa8-4803-8536-888784dccebb",
+                        "name": "Week(s)",
+                        "color": "green"
+                    }
+                },
+                "Sub Seed": {
+                    "id": "t%5CIc",
+                    "type": "formula",
+                    "formula": {
+                        "type": "boolean",
+                        "boolean": true
+                    }
+                },
+                "Parent Task": {
+                    "id": "uyrv",
+                    "type": "relation",
+                    "relation": []
+                },
+                "Sub Seed Name": {
+                    "id": "wNli",
+                    "type": "formula",
+                    "formula": {
+                        "type": "string",
+                        "string": "FC Tagup Agenda"
+                    }
+                },
+                "Sub-Tasks": {
+                    "id": "wzvD",
+                    "type": "relation",
+                    "relation": []
+                },
+                "Kanban - State": {
+                    "id": "xkX~",
+                    "type": "select",
+                    "select": {
+                        "id": "2cc623d0-c50b-48d9-a6f8-d508e2d534d3",
+                        "name": "To Do",
+                        "color": "red"
+                    }
+                },
+                "Last Weekday Base Date": {
+                    "id": "yDZq",
+                    "type": "formula",
+                    "formula": {
+                        "type": "date",
+                        "date": {
+                            "start": "1998-09-28T17:00:00.000+00:00",
+                            "end": null,
+                            "time_zone": null
+                        }
+                    }
+                },
+                "Late": {
+                    "id": "zVlx",
+                    "type": "formula",
+                    "formula": {
+                        "type": "string",
+                        "string": ""
+                    }
+                },
+                "Next Last Base Date": {
+                    "id": "ziVU",
+                    "type": "formula",
+                    "formula": {
+                        "type": "date",
+                        "date": {
+                            "start": "1998-09-28T17:00:00.000+00:00",
+                            "end": null,
+                            "time_zone": null
+                        }
+                    }
+                },
+                "\u2705 Sub-Task Divider": {
+                    "id": "%7DucP",
+                    "type": "formula",
+                    "formula": {
+                        "type": "string",
+                        "string": "\ud83d\uded1\ud83d\uded1\ud83d\uded1 Helper functions for sub-task sorting \ud83d\uded1\ud83d\uded1\ud83d\uded1"
+                    }
+                },
+                "Task": {
+                    "id": "title",
+                    "type": "title",
+                    "title": [
+                        {
+                            "type": "text",
+                            "text": {
+                                "content": "FC Tagup Agenda",
+                                "link": null
+                            },
+                            "annotations": {
+                                "bold": false,
+                                "italic": false,
+                                "strikethrough": false,
+                                "underline": false,
+                                "code": false,
+                                "color": "default"
+                            },
+                            "plain_text": "FC Tagup Agenda",
+                            "href": null
+                        }
+                    ]
+                }
+            },
+            "url": "https://www.notion.so/FC-Tagup-Agenda-ff587c8834f64969ba7c0eddbc6471d7"
+        }
+    ],
+    "next_cursor": null,
+    "has_more": false,
+    "type": "page",
+    "page": {}
+}
