@@ -1,6 +1,8 @@
+#! /usr/bin/python3
+
 import json
 import requests
-
+import datetime
 import notion_filters as filters
 
 
@@ -99,6 +101,8 @@ if __name__ == "__main__":
     # Uncheck "Done" and update "Due" to "Next Due"
     updateTasks(tasks_recurring, filters.properties_recurring)
 
+    now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    print(f"Updating Notion Databases at \n{now}") 
 '''
     tasks_done = getTasks(filter=filters.filter_done_tasks, 
         output_file="done_tasks.json"
