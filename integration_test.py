@@ -3,6 +3,7 @@
 import json
 import requests
 import datetime
+import os
 import notion_filters as filters
 
 
@@ -11,7 +12,7 @@ token = 'secret_OGasRVOcWYlxjfObQUILjZiwbfEzVUTQypReFsYLyv0'
 database_id_todo_personal = '598c0b54b17d423a8c7d4acc57fda8fc'
 database_id_todo_work = 'e951bc881e0e4053a6ef4b9202520550'
 
-output_file_default = 'logs/tasks_default.json'
+output_file_default = '../logs/tasks_default.json'
 
 def _mapNotionResultToTask(result):
         # you can print result here and check the format of the answer.
@@ -44,7 +45,7 @@ def getTasks(db_id, filter=filters.filter_default,
     assert result_dict['object'] != "error", result_dict['message']
 
     # Write raw json results to file for debugging
-    with open('logs/result_dump.json', 'w+') as f:
+    with open('../logs/result_dump.json', 'w+') as f:
         json.dump(result_dict, f, indent=4)
 
     list_result = result_dict['results']
@@ -85,10 +86,14 @@ def updateTasks(tasks, body_func):
     return
     
 if __name__ == "__main__":
+    # First make sure the "logs" folder exists:
+    if not os.path.exists('../logs'):
+        os.makedirs("../logs")
+
     # Grab all recurring tasks that are completed
     tasks_recurring = getTasks(db_id = database_id_todo_personal, 
         filter=filters.filter_recurring_tasks, 
-        output_file="logs/recurring_tasks.json"
+        output_file="../logs/recurring_tasks.json"
     )
     # Uncheck "Done" and update "Due" to "Next Due"
     updateTasks(tasks_recurring, filters.properties_recurring)
@@ -96,7 +101,7 @@ if __name__ == "__main__":
     # Grab all recurring tasks that are completed
     tasks_recurring = getTasks(db_id = database_id_todo_work, 
         filter=filters.filter_recurring_tasks, 
-        output_file="logs/recurring_tasks.json"
+        output_file="../logs/recurring_tasks.json"
     )
     # Uncheck "Done" and update "Due" to "Next Due"
     updateTasks(tasks_recurring, filters.properties_recurring)
@@ -105,6 +110,6 @@ if __name__ == "__main__":
     print(f"Updating Notion Databases at \n{now}") 
 '''
     tasks_done = getTasks(filter=filters.filter_done_tasks, 
-        output_file="logs/done_tasks.json"
+        output_file="../logs/done_tasks.json"
     )
 '''   
