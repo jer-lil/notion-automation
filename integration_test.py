@@ -44,7 +44,7 @@ def getTasks(db_id, filter=filters.filter_default,
     assert result_dict['object'] != "error", result_dict['message']
 
     # Write raw json results to file for debugging
-    with open('logs/result_dump.json', 'w') as f:
+    with open('logs/result_dump.json', 'w+') as f:
         json.dump(result_dict, f, indent=4)
 
     list_result = result_dict['results']
@@ -54,7 +54,7 @@ def getTasks(db_id, filter=filters.filter_default,
         tasks.append(task_dict)
 
     # Write recurring tasks to file
-    with open(output_file, 'w') as f:
+    with open(output_file, 'w+') as f:
         json.dump(tasks, f, indent=4)
 
     return tasks
