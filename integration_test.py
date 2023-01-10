@@ -8,9 +8,11 @@ import notion_filters as filters
 
 
 
-token = 'secret_OGasRVOcWYlxjfObQUILjZiwbfEzVUTQypReFsYLyv0'
+token_jeremiah = 'secret_OGasRVOcWYlxjfObQUILjZiwbfEzVUTQypReFsYLyv0'
+token_meera = 'secret_OZl7ifOa7D6jamLlEJEQhnuotQRrg4GIM1Oj6wHNh3k'
 database_id_todo_personal = '598c0b54b17d423a8c7d4acc57fda8fc'
 database_id_todo_work = 'e951bc881e0e4053a6ef4b9202520550'
+database_id_todo_meera = '309ad6f920b9493790de7f9a81d273ad'
 
 output_file_default = '../logs/tasks_default.json'
 
@@ -32,7 +34,7 @@ def _mapNotionResultToTask(result):
             'task_id': task_id
         }
 
-def getTasks(db_id, filter=filters.filter_default,
+def getTasks(token, db_id, filter=filters.filter_default,
         output_file=output_file_default,
     ):
     url = f'https://api.notion.com/v1/databases/{db_id}/query'
@@ -60,7 +62,7 @@ def getTasks(db_id, filter=filters.filter_default,
 
     return tasks
 
-def _updateTask(page_id, body):
+def _updateTask(token, page_id, body):
     url = f"https://api.notion.com/v1/pages/{page_id}"
     headers = {
         "Authorization": f"Bearer {token}",
@@ -79,32 +81,43 @@ def _updateTask(page_id, body):
         raise SystemExit(e)
 
 
-def updateTasks(tasks, body_func):
+def updateTasks(token, tasks, body_func):
     for task in tasks:
         body = body_func(task)
-        _updateTask(task['task_id'], body)
+        _updateTask(token, task['task_id'], body)
     return
+
+def updateDatabase(token, db_id, filter_get, filter_update, output_file):
+    # Grab all recurring tasks that are completed
+    tasks_recurring = getTasks(token, db_id, filter_get, output_file)
+    # Uncheck "Done" and update "Due" to "Next Due"
+    updateTasks(token, tasks_recurring, filter_update)
     
 if __name__ == "__main__":
     # First make sure the "logs" folder exists:
     if not os.path.exists('../logs'):
         os.makedirs("../logs")
 
-    # Grab all recurring tasks that are completed
-    tasks_recurring = getTasks(db_id = database_id_todo_personal, 
-        filter=filters.filter_recurring_tasks, 
-        output_file="../logs/recurring_tasks.json"
-    )
-    # Uncheck "Done" and update "Due" to "Next Due"
-    updateTasks(tasks_recurring, filters.properties_recurring)
+    filter_get = filters.filter_recurring_tasks
+    filter_update = filters.properties_recurring
 
-    # Grab all recurring tasks that are completed
-    tasks_recurring = getTasks(db_id = database_id_todo_work, 
-        filter=filters.filter_recurring_tasks, 
-        output_file="../logs/recurring_tasks.json"
-    )
-    # Uncheck "Done" and update "Due" to "Next Due"
-    updateTasks(tasks_recurring, filters.properties_recurring)
+    # UPDATE JEREMIAH'S PERSONAL DATABASE
+    updateDatabase(token_jeremiah, database_id_todo_personal, 
+        filter_get, filter_update,
+        output_file = "../logs/recurring_tasks_jeremiah_personal.json",
+        )
+    
+    # UPDATE JEREMIAH'S WORK DATABASE
+    updateDatabase(token_jeremiah, database_id_todo_work, 
+        filter_get, filter_update,
+        output_file = "../logs/recurring_tasks_jeremiah_work.json",
+        )
+
+    # UPDATE MEERA'S DATABASE
+    updateDatabase(token_meera, database_id_todo_meera, 
+        filter_get, filter_update,
+        output_file = "../logs/recurring_tasks_meera.json",
+        )
 
     now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     print(f"Updating Notion Databases at \n{now}") 
