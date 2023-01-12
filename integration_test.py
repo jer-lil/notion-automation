@@ -5,14 +5,11 @@ import requests
 import datetime
 import os
 import notion_filters as filters
+from hidden import tokens
 
 
 
-token_jeremiah = 'secret_OGasRVOcWYlxjfObQUILjZiwbfEzVUTQypReFsYLyv0'
-token_meera = 'secret_OZl7ifOa7D6jamLlEJEQhnuotQRrg4GIM1Oj6wHNh3k'
-database_id_todo_personal = '598c0b54b17d423a8c7d4acc57fda8fc'
-database_id_todo_work = 'e951bc881e0e4053a6ef4b9202520550'
-database_id_todo_meera = '309ad6f920b9493790de7f9a81d273ad'
+
 
 logs_folder_path = 'logs'
 output_file_default = '/log_default.json'
@@ -100,19 +97,19 @@ if __name__ == "__main__":
     filter_update = filters.properties_recurring
 
     # UPDATE JEREMIAH'S PERSONAL DATABASE
-    updateDatabase(token_jeremiah, database_id_todo_personal, 
+    updateDatabase(tokens.TOKEN_JEREMIAH, tokens.DB_ID_TODO_PERSONAL, 
         filter_get, filter_update,
         output_file = f'{logs_folder_path}/recurring_tasks_jeremiah_personal.json',
         )
     
     # UPDATE JEREMIAH'S WORK DATABASE
-    updateDatabase(token_jeremiah, database_id_todo_work, 
+    updateDatabase(tokens.TOKEN_JEREMIAH, tokens.DB_ID_TODO_WORK, 
         filter_get, filter_update,
         output_file = f'{logs_folder_path}/recurring_tasks_jeremiah_work.json',
         )
 
     # UPDATE MEERA'S DATABASE
-    updateDatabase(token_meera, database_id_todo_meera, 
+    updateDatabase(tokens.TOKEN_MEERA, tokens.DB_ID_TODO_MEERA, 
         filter_get, filter_update,
         output_file = f'{logs_folder_path}/recurring_tasks_meera.json',
         )

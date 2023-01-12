@@ -219,4 +219,11 @@ $RECYCLE.BIN/
 
 # Other gitignores:
 
-logs/**
+#Exclude contents of logs folder
+logs/*
+# Keep gitkeep file to ensure folder is committed
+!logs/.gitkeep
+#Exclude contents of logs folder
+hidden/*
+# Keep gitkeep file to ensure folder is committed
+!hidden/.gitkeep
