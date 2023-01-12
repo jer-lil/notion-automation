@@ -14,7 +14,8 @@ database_id_todo_personal = '598c0b54b17d423a8c7d4acc57fda8fc'
 database_id_todo_work = 'e951bc881e0e4053a6ef4b9202520550'
 database_id_todo_meera = '309ad6f920b9493790de7f9a81d273ad'
 
-output_file_default = '../logs/tasks_default.json'
+logs_folder_path = 'logs'
+output_file_default = '/log_default.json'
 
 def _mapNotionResultToTask(result):
         # you can print result here and check the format of the answer.
@@ -34,20 +35,18 @@ def _mapNotionResultToTask(result):
             'task_id': task_id
         }
 
-def getTasks(token, db_id, filter=filters.filter_default,
-        output_file=output_file_default,
-    ):
+def getTasks(token, db_id, json_filter, output_file):
     url = f'https://api.notion.com/v1/databases/{db_id}/query'
     headers={
         "Authorization": f"Bearer {token}",
         "Notion-Version": "2022-02-22"
         }
-    r = requests.post(url, headers=headers, json=filter)
+    r = requests.post(url, headers=headers, json=json_filter)
     result_dict = r.json()
     assert result_dict['object'] != "error", result_dict['message']
 
     # Write raw json results to file for debugging
-    with open('../logs/result_dump.json', 'w+') as f:
+    with open(f'{logs_folder_path}/result_dump.json', 'w+') as f:
         json.dump(result_dict, f, indent=4)
 
     list_result = result_dict['results']
@@ -95,8 +94,7 @@ def updateDatabase(token, db_id, filter_get, filter_update, output_file):
     
 if __name__ == "__main__":
     # First make sure the "logs" folder exists:
-    if not os.path.exists('../logs'):
-        os.makedirs("../logs")
+    assert os.path.isdir(logs_folder_path), f"logs folder doesn't exist, please create it"
 
     filter_get = filters.filter_recurring_tasks
     filter_update = filters.properties_recurring
@@ -104,25 +102,25 @@ if __name__ == "__main__":
     # UPDATE JEREMIAH'S PERSONAL DATABASE
     updateDatabase(token_jeremiah, database_id_todo_personal, 
         filter_get, filter_update,
-        output_file = "../logs/recurring_tasks_jeremiah_personal.json",
+        output_file = f'{logs_folder_path}/recurring_tasks_jeremiah_personal.json',
         )
     
     # UPDATE JEREMIAH'S WORK DATABASE
     updateDatabase(token_jeremiah, database_id_todo_work, 
         filter_get, filter_update,
-        output_file = "../logs/recurring_tasks_jeremiah_work.json",
+        output_file = f'{logs_folder_path}/recurring_tasks_jeremiah_work.json',
         )
 
     # UPDATE MEERA'S DATABASE
     updateDatabase(token_meera, database_id_todo_meera, 
         filter_get, filter_update,
-        output_file = "../logs/recurring_tasks_meera.json",
+        output_file = f'{logs_folder_path}/recurring_tasks_meera.json',
         )
 
     now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     print(f"Updating Notion Databases at \n{now}") 
 '''
-    tasks_done = getTasks(filter=filters.filter_done_tasks, 
-        output_file="../logs/done_tasks.json"
+    tasks_done = getTasks(json_filter=filters.filter_done_tasks, 
+        output_file="/logs/done_tasks.json"
     )
 '''   
