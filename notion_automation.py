@@ -15,24 +15,25 @@ def _jsonLogDump(file_path, contents):
         f.write(f"File updated at {now}\n\n")
         json.dump(contents, f, indent=4)
 
+"""
+Takes in raw JSON params for a page and returns a dict with usable 
+    values extracted
 
+#TODO tasks should probably be a class
 
-def _mapNotionResultToTask(result):
-        # you can print result here and check the format of the answer.
-        task_id = result['id']
-        properties = result['properties']
-        task_name = properties['Task']['title'][0]['text']['content']
-        due_date = properties['Due']['date']['start']
-        next_due = properties['Next Due']['formula']['string']
-        kanban_state = properties['Kanban - State']['select']['name']
-        done = properties['Done']['checkbox']
+:param task_raw: JSON object with raw params for that notion page
+"""
+def _extractParameters(task_raw):
+        # 
+        properties = task_raw['properties']
         return {
-            'task_name': task_name,
-            'due_date': due_date,
-            'next_due': next_due,
-            'kanban_state': kanban_state,
-            'done': done,
-            'task_id': task_id
+            'task_name': task_raw['properties']['Task']['title'][0]['text']['content'],
+            'due_date': task_raw['properties']['Due']['date']['start'],
+            'next_due': task_raw['properties']['Next Due']['formula']['string'],
+            'kanban_state': task_raw['properties']['Kanban - State']['select']['name'],
+            'done': task_raw['properties']['Done']['checkbox'],
+            'recurring_priority': task_raw['properties']['Recurring Priority']['select']['name'],
+            'task_id': task_raw['id']
         }
 
 def getTasks(token, db_id, json_filter, output_file):
@@ -50,8 +51,8 @@ def getTasks(token, db_id, json_filter, output_file):
 
     list_result = result_dict['results']
     tasks = []
-    for task in list_result:
-        task_dict = _mapNotionResultToTask(task)
+    for task_raw in list_result:
+        task_dict = _extractParameters(task_raw)
         tasks.append(task_dict)
     
     _jsonLogDump(output_file, tasks)

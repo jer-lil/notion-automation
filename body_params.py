@@ -13,7 +13,7 @@ ID_DONE = "_D%5ER"
 ID_DUE = "bl%3D%3B"
 ID_NEXT_DUE = "WcB%5C"
 ID_KANBAN_STATE = "xkX~"
-
+ID_PRIORITY = "Priority"  #bbfM
 
 """ 
 FILTERS DEFINITIONS
@@ -163,6 +163,11 @@ def get_prop_recurring(task):
                     ID_DUE: {
                         "date": {
                             "start": due_iso
+                        }
+                    },
+                    ID_PRIORITY: {
+                        "select": {
+                            "name": task['recurring_priority']
                         }
                     }
                 }
