@@ -219,11 +219,15 @@ $RECYCLE.BIN/
 
 # Other gitignores:
 
+#Exclude contents of .vscode folder
+.vscode/*
+
 #Exclude contents of logs folder
 logs/*
 # Keep gitkeep file to ensure folder is committed
 !logs/.gitkeep
-#Exclude contents of logs folder
+
+#Exclude contents of hidden folder
 hidden/*
 # Keep gitkeep file to ensure folder is committed
 !hidden/.gitkeep

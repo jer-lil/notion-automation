@@ -26,4 +26,4 @@ if __name__ == "__main__":
         tokens.DB_ID_TODO_MEERA, db_name = 'TODO_MEERA')
 
     now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    print(f"Updating Notion Databases at \n{now}")
+    print(f"\nFinished updating Notion databases at {now}")

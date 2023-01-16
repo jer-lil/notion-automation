@@ -7,12 +7,11 @@ from datetime import datetime
 # -> update, it seems to work with my work list and meera's list, so maybe I'm wrong? 
 # -> update, seems like it can just be plain text of the property name? Which
 #       makes sense because that's how the filters behave...
-# XXX update these to plain text per the above, and replace explicit
-#   definitions in json bodies below
-ID_DONE = "_D%5ER"
-ID_DUE = "bl%3D%3B"
-ID_NEXT_DUE = "WcB%5C"
-ID_KANBAN_STATE = "xkX~"
+# XXX define these in a better way that's shared with other files
+ID_DONE = "Done" #_D%5ER
+ID_DUE = "Due" #bl%3D%3B
+ID_NEXT_DUE = "Next Due" #WcB%5C
+ID_KANBAN_STATE = "Kanban - State" #xkX~"
 ID_PRIORITY = "Priority"  #bbfM
 
 """ 
@@ -152,7 +151,7 @@ def get_prop_recurring(task):
         '%B %d, %Y').date().isoformat()
     body = {
                 "properties": {
-                    ID_DONE: {
+                    "Done": {
                         "checkbox": False
                     },
                     ID_KANBAN_STATE: {
