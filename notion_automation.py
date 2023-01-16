@@ -4,10 +4,11 @@ import traceback
 import json
 import requests
 import datetime
+import os
+from os.path import join
 import body_params as params
 
-logs_folder_path = 'logs'
-errors_filename = 'errors'
+LOGS_FOLDER = 'logs'
 
 def _jsonLogDump(file_path, contents, file_mode='w+'):
     with open(file_path, file_mode) as f:
@@ -151,8 +152,32 @@ def updateTasks(token, tasks, body_func, log_file):
     return
 
 """
+Creates a logs file including all intermediate directories.
+Returns full path of logs file
+"""
+def createLogsFile(logs_folder_base, update_type, filename):
+    log_folder = os.path.join(logs_folder_base, update_type)
+    print(log_folder)
+    os.makedirs(log_folder, exist_ok=True)
+    return os.path.join(log_folder, filename)
+
+"""
 For now this is kind of a "do it all" function that just performs the database
     updates that we want performed every day.
+
+Logs folder directory structure:
+
+logs/
+├─ DATABASE_A/
+│  ├─ 2023-01-15--03-00-00/
+│  │  ├─ update_type_a/
+│  │  │  ├─ read.json
+│  │  │  ├─ write.json
+│  │  ├─ update_type_B/
+│  │  │  ├─ read.json
+│  │  │  ├─ write.json
+│  ├─ 2023-01-15--03-00-00/
+├─ DATABASE_B/
 
 :param token: 
 :param db_id: 
@@ -160,36 +185,36 @@ For now this is kind of a "do it all" function that just performs the database
 
 """
 def updateDatabase(token, db_id, db_name):
+    # Create log folder for this database update
+    now = datetime.datetime.now().strftime("%Y-%m-%d--%H-%M-%S")  
+    log_folder = os.path.join(LOGS_FOLDER, db_name, now)
 
     # Update recurring tasks that are marked as complete
     update_type = 'recurring_tasks'
-    file_path_base = f'{logs_folder_path}/{db_name}/{update_type}'
-    now = datetime.datetime.now().strftime("%Y-%m-%d--%H-%M-%S")
     try:
         print(f'\nAttempting to update "{update_type}" in database "{db_name}"')
-        log_file_path = f'{file_path_base}_read--{now}.json'
+        log_file_path = createLogsFile(log_folder, update_type, 'read.json')
         tasks_recurring = getTasks(token, db_id, params.filter_recurring_tasks,
             log_file_path)
     except RuntimeError as e:
         print(e)
     else:
-        log_file_path = f'{file_path_base}_write--{now}.json'
+        log_file_path = createLogsFile(log_folder, update_type, 'write.json')
         updateTasks(token, tasks_recurring, params.get_prop_recurring,
             log_file_path)
         print(" -> Finished updating")
 
     # Resolve conflicts of "Done" checkbox and Kanban State
     update_type = 'done_conflict_tasks'
-    file_path_base = f'{logs_folder_path}/{db_name}/{update_type}'
     try:
         print(f'\nAttempting to update "{update_type}" in database "{db_name}"')
-        log_file_path = f'{file_path_base}_read--{now}.json'
+        log_file_path = createLogsFile(log_folder, update_type, 'read.json')
         tasks_done_conflicted = getTasks(token, db_id, 
             params.filter_done_conflict_tasks, log_file_path)
     except RuntimeError as e:
         print(e)
     else:
-        log_file_path = f'{file_path_base}_write--{now}.json'
+        log_file_path = createLogsFile(log_folder, update_type, 'write.json')
         updateTasks(token, tasks_done_conflicted, params.get_prop_done,
             log_file_path)
         print(" -> Finished updating")
