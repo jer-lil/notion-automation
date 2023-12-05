@@ -3,8 +3,8 @@ on:
   push:
   pull_request:
   schedule:
-    - cron: '* * * * *'
-    # 10:00AM UTC time / 2:00AM PST
+    - cron: '*/5 * * * *'
+    # Every 5 minutes, for now
 
 jobs:
   build:
