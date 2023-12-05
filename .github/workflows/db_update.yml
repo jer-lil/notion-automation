@@ -1,5 +1,7 @@
 name: db-update
 on:
+  push:
+  pull_request:
   schedule:
     - cron: '* * * * *'
     # 10:00AM UTC time / 2:00AM PST
