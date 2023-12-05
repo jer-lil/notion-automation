@@ -1,7 +1,7 @@
 name: db-update
 on:
   schedule:
-    - cron: '0 10 * * *'
+    - cron: '* * * * *'
     # 10:00AM UTC time / 2:00AM PST
 
 jobs:
