@@ -5,7 +5,7 @@ import os
 import notion_automation
 from hidden import tokens
 
-logs_folder_path = '/logs'
+logs_folder_path = 'logs'
 
 if __name__ == "__main__":
     # First make sure the "logs" folder exists:
