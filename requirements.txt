@@ -1,6 +1,3 @@
 
-traceback
-json
-requests
-datetime
-os
+
+requests==2.31.0
