@@ -1,16 +1,19 @@
-name: db-update
+name: Tests
 on:
   push:
-  schedule:
-    - cron: '0 * * * *'
-    # Every hour, for now
+    branches: [ main ]
+  pull-request:
+    branches: [ main ]
+
 
 jobs:
-  build:
-    runs-on: ubuntu-latest    
+  build-and-test:
+
+    runs-on: ubuntu-latest
+    
     steps:
       - name: checkout repository
-        uses: actions/checkout@v2    
+        uses: actions/checkout@v3    
       
       - name: set up python
         uses: actions/setup-python@v4
@@ -22,5 +25,5 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: update all databases
-        run: python update_all_TEMP.py
+      - name: test db update
+        run: python test_update_all_databases.py
