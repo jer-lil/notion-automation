@@ -31,6 +31,6 @@ jobs:
         env:
           DB_ID: ${{ secrets.DB_ID_TEST_JER }}
           TOKEN: ${{ secrets.TOKEN_JEREMIAH }}
+        # TODO initialize test database
         run: |
-          echo "$DB_ID"
-          #python notion_automation/db_update.py "$TOKEN" "$DB_ID" "Jer Test Database"
+          python notion_automation/db_update.py "$TOKEN" "$DB_ID" "Jer Test Database"
