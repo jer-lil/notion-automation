@@ -1,5 +1,6 @@
 name: test-db-update
 on:
+  workflow_dispatch:
   push:
     branches: [ main ]
   pull_request:
@@ -34,3 +35,9 @@ jobs:
         # TODO initialize test database
         run: |
           python notion_automation/db_update.py "$TOKEN" "$DB_ID" "Jer Test Database"
+      
+      - name: upload artifacts  
+        uses: actions/upload-artifact@v3
+        with: 
+            name: logs
+            path: logs/
