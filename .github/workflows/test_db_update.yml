@@ -26,4 +26,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: test db update
-        run: python test_update_all_databases.py
+        env:
+          DB_ID: ${{ secrets.DB_ID_TEST_JER }}
+          TOKEN: ${{ secrets.TOKEN_JEREMIAH }}
+        run: python notion_automation/db_update.py "$TOKEN" "$DB_ID" "Jer Test Database"

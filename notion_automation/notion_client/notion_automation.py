@@ -6,7 +6,7 @@ import requests
 import datetime
 import os
 from os.path import join
-import body_params as params
+import notion_client.body_params as params
 
 LOGS_FOLDER = 'logs'
 
