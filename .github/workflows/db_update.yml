@@ -1,9 +1,8 @@
-name: db-update
+name: update-all-databases
 on:
-  push: 
   schedule:
-    - cron: '0 * * * *'
-    # Every hour, for now
+    - cron: '0 8 * * *'
+    # 8:00am UTC == 2:00am PST
 
 jobs:
   update-databases:
