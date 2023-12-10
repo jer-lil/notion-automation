@@ -27,7 +27,7 @@ jobs:
         env:
           DB_NAME: Jeremiah's TODO List
           DB_ID: ${{ secrets.DB_ID_JER_TODO }}
-          TOKEN_JER: ${{ secrets.TOKEN_JEREMIAH }}
+          TOKEN: ${{ secrets.TOKEN_JEREMIAH }}
         run: |
           python notion_automation/db_update.py "$TOKEN" "$DB_ID" "$DB_NAME"
 
