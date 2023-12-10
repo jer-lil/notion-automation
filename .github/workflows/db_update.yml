@@ -1,5 +1,6 @@
 name: update-all-databases
 on:
+  workflow_dispatch:
   schedule:
     - cron: '0 10 * * *'
     # 10:00am UTC == 2:00am PST
@@ -38,4 +39,10 @@ jobs:
           TOKEN: ${{ secrets.TOKEN_MEERA }}
         run: |
           python notion_automation/db_update.py "$TOKEN" "$DB_ID" "$DB_NAME"
+
+      - name: upload artifacts  
+        uses: actions/upload-artifact@v3
+        with: 
+          name: logs
+          path: logs/
   
