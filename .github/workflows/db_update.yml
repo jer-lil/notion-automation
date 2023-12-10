@@ -1,8 +1,8 @@
 name: update-all-databases
 on:
   schedule:
-    - cron: '0 8 * * *'
-    # 8:00am UTC == 2:00am PST
+    - cron: '0 10 * * *'
+    # 10:00am UTC == 2:00am PST
 
 jobs:
   update-databases:
