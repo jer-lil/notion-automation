@@ -11,6 +11,9 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
+    if args.db_id == "":
+        raise ValueError("Database ID cannot be blank!")
+
     notion.updateDatabase(db_id=args.db_id,
                           db_name=args.db_name,
                           token=args.token)
