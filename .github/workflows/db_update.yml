@@ -6,7 +6,7 @@ on:
     # Every hour, for now
 
 jobs:
-  build:
+  update-databases:
     runs-on: ubuntu-latest    
     steps:
       - name: checkout repository
@@ -26,7 +26,7 @@ jobs:
         shell: bash
         env:
           DB_NAME: Jeremiah's TODO List
-          DB_ID_JER_TODO: ${{ secrets.DB_ID_JER_TODO }}
+          DB_ID: ${{ secrets.DB_ID_JER_TODO }}
           TOKEN_JER: ${{ secrets.TOKEN_JEREMIAH }}
         run: |
           python notion_automation/db_update.py "$TOKEN" "$DB_ID" "$DB_NAME"
