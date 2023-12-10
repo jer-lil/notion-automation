@@ -1,11 +1,11 @@
-name: db-update
+name: update-all-databases
 on:
   schedule:
-    - cron: '0 * * * *'
-    # Every hour, for now
+    - cron: '0 8 * * *'
+    # 8:00am UTC == 2:00am PST
 
 jobs:
-  build:
+  update-databases:
     runs-on: ubuntu-latest    
     steps:
       - name: checkout repository
@@ -21,5 +21,21 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: update all databases
-        run: python update_all_TEMP.py
+      - name: update jeremiah's todo list
+        shell: bash
+        env:
+          DB_NAME: Jeremiah's TODO List
+          DB_ID: ${{ secrets.DB_ID_JER_TODO }}
+          TOKEN: ${{ secrets.TOKEN_JEREMIAH }}
+        run: |
+          python notion_automation/db_update.py "$TOKEN" "$DB_ID" "$DB_NAME"
+
+      - name: update meera's todo list
+        shell: bash
+        env:
+          DB_NAME: Meera's TODO List
+          DB_ID: ${{ secrets.DB_ID_MEERA_TODO }}
+          TOKEN: ${{ secrets.TOKEN_MEERA }}
+        run: |
+          python notion_automation/db_update.py "$TOKEN" "$DB_ID" "$DB_NAME"
+  

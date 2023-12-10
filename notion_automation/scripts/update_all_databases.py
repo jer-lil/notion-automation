@@ -2,7 +2,7 @@
 
 import datetime
 import os
-import notion_automation
+import notion_automation.notion_automation as notion_automation
 from hidden import tokens
 
 logs_folder_path = 'logs'
