@@ -13,6 +13,10 @@ if __name__ == "__main__":
 
     if args.db_id == "":
         raise ValueError("Database ID cannot be blank!")
+    if args.token == "":
+        raise ValueError("Notion API Token cannot be blank!")
+    if args.db_name == "":
+        raise ValueError("Database Name cannot be blank!")
 
     notion.updateDatabase(db_id=args.db_id,
                           db_name=args.db_name,
