@@ -24,8 +24,17 @@ def createLogFile(folder_base: str, subfolder:str, filename:str) -> str:
     return os.path.join(log_folder, filename) 
 
 
-def getTasks(client, db_id, body_filter):
-    
+def getDbMembers(client: Client, db_id: str, body_filter: dict) -> list:
+    """ Returns list of database members matching body_filter
+
+    Args:
+        client (Client): _description_
+        db_id (str): _description_
+        body_filter (dict): _description_
+
+    Returns:
+        list: _description_
+    """
     results = client.databases.query(
         **{
             "database_id": db_id,
@@ -33,3 +42,6 @@ def getTasks(client, db_id, body_filter):
         }
     ).get("results")
     return results
+
+
+

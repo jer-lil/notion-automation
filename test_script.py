@@ -2,8 +2,13 @@
 
 import os
 import logging
-import notion_automation.util as util
+import pprint
+import json
 from notion_client import Client
+from notion_client import helpers
+
+import notion_automation.notion_automation as na
+from hidden import tokens
 
 filter_recurring_tasks = {
         "and": [
@@ -42,17 +47,22 @@ filter_done = {
     }
 }
 
-if __name__ == "__main__":
-    import sys    
-    print("In module products sys.path[0], __package__ ==", sys.path[0], __package__)
-    
-    from hidden import tokens
+if __name__ == "__main__":  
 
     filter = {"property": "Name", "text": {"contains": "Recurring"}}
 
     notion = Client(auth=tokens.TOKEN_JEREMIAH)
 
-    tasks = util.getTasks(notion, tokens.DB_ID_TODO_PERSONAL, filter_done)
+    tasks = na.getDbMembers(notion, tokens.DB_ID_TODO_PERSONAL, filter_done)
+
+    # Need to filter out properties that we care about.
+    # Or do we? Could just make a shorthand way to read properties 
+    #   vs. filtering it down and getting rid of the data
+    # It might be nice as a utility function to output readable data
 
     for task in tasks:
-        print(task.get("id"))
+        task = helpers.pick(task.get('properties'), 'Task', 'Done')
+        print(json.dumps(task, indent=4))
+    
+    for task in tasks:
+
