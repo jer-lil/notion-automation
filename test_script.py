@@ -2,7 +2,7 @@
 
 import os
 import logging
-from util import util
+import notion_automation.util as util
 from notion_client import Client
 
 filter_recurring_tasks = {
@@ -43,7 +43,10 @@ filter_done = {
 }
 
 if __name__ == "__main__":
-    from ..hidden import tokens
+    import sys    
+    print("In module products sys.path[0], __package__ ==", sys.path[0], __package__)
+    
+    from hidden import tokens
 
     filter = {"property": "Name", "text": {"contains": "Recurring"}}
 
