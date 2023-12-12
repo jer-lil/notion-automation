@@ -43,7 +43,7 @@ filter_done = {
 }
 
 if __name__ == "__main__":
-    from hidden import tokens
+    from ..hidden import tokens
 
     filter = {"property": "Name", "text": {"contains": "Recurring"}}
 
