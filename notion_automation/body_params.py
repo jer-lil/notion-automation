@@ -39,8 +39,6 @@ is not empty.
 Task completion is checked in both the "Done" checkbox and Kanban state.
 """
 filter_recurring_tasks = {
-    "page_size": 10000,
-    "filter": {
         "and": [
             {
                 "property": "Next Due",
@@ -68,7 +66,6 @@ filter_recurring_tasks = {
                 
             }
         ]
-  }
 }
 
 """
@@ -81,8 +78,6 @@ The main purpose would be to resolve these conflicts, and with a simple
     in both places, so this would only enable a one-way conflict resolution.
 """
 filter_done_conflict_tasks = {
-    "page_size": 10000,
-    "filter": {
         "or": [
             {
                 "and": [
@@ -129,8 +124,8 @@ filter_done_conflict_tasks = {
                 ]
             }
         ]       
-    }
 }
+
 
 """ 
 PROPERTIES DEFINITIONS

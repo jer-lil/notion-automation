@@ -34,7 +34,7 @@ jobs:
           TOKEN: ${{ secrets.TOKEN_JEREMIAH }}
         # TODO initialize test database
         run: |
-          python notion_automation/db_update.py "$TOKEN" "$DB_ID" "Jer Test Database"
+          python db_update.py "$TOKEN" "$DB_ID" "Jer Test Database"
       
       - name: upload artifacts  
         uses: actions/upload-artifact@v3

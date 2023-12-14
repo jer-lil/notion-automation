@@ -29,7 +29,7 @@ jobs:
           DB_ID: ${{ secrets.DB_ID_JER_TODO }}
           TOKEN: ${{ secrets.TOKEN_JEREMIAH }}
         run: |
-          python notion_automation/db_update.py "$TOKEN" "$DB_ID" "$DB_NAME"
+          python db_update.py "$TOKEN" "$DB_ID" "$DB_NAME"
 
       - name: update meera's todo list
         shell: bash
@@ -38,7 +38,7 @@ jobs:
           DB_ID: ${{ secrets.DB_ID_MEERA_TODO }}
           TOKEN: ${{ secrets.TOKEN_MEERA }}
         run: |
-          python notion_automation/db_update.py "$TOKEN" "$DB_ID" "$DB_NAME"
+          python db_update.py "$TOKEN" "$DB_ID" "$DB_NAME"
 
       - name: upload artifacts  
         uses: actions/upload-artifact@v3
