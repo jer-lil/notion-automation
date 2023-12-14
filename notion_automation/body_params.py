@@ -38,41 +38,35 @@ is not empty.
 
 Task completion is checked in both the "Done" checkbox and Kanban state.
 """
-def get_filter_recurring_tasks():
-    body = {
-        "page_size": 10000,
-        "filter": {
-            "and": [
-                {
-                    "property": "Next Due",
-                    "formula": {
-                        "string": {
-                            "is_not_empty": True
+filter_recurring_tasks = {
+        "and": [
+            {
+                "property": "Next Due",
+                "formula": {
+                    "string": {
+                        "is_not_empty": True
+                    }
+                }
+            },
+            {
+                "or": [
+                    {
+                        "property": "Done",
+                        "checkbox": {
+                            "equals": True
+                        }
+                    },
+                    {
+                        "property": "Kanban - State",
+                        "select": {
+                            "equals": "Done"
                         }
                     }
-                },
-                {
-                    "or": [
-                        {
-                            "property": "Done",
-                            "checkbox": {
-                                "equals": True
-                            }
-                        },
-                        {
-                            "property": "Kanban - State",
-                            "select": {
-                                "equals": "Done"
-                            }
-                        }
-                    ]
-                    
-                }
-            ]
-        }
-    }
-
-    return body
+                ]
+                
+            }
+        ]
+}
 
 """
 JSON filter to return all tasks that are in a conflicted state, meaning they 
@@ -83,60 +77,55 @@ The main purpose would be to resolve these conflicts, and with a simple
     filter such as this one, the only way would be to mark them as "Done"
     in both places, so this would only enable a one-way conflict resolution.
 """
-def get_filter_done_conflict():
-    body = {
-        "page_size": 10000,
-        "filter": {
-            "or": [
-                {
-                    "and": [
-                        {
-                            "property": "Done",
-                            "checkbox": {
-                                "equals": True
-                            }
-                        },
-                        {
-                            "property": "Kanban - State",
-                            "select": {
-                                "does_not_equal": "Done"
-                            }
-                        },
-                        {
-                            "property": "Task",
-                            "title": {
-                                "is_not_empty": True
-                            }
-                        },     
-                    ]
-                },
-                {
-                    "and": [
-                        {
-                            "property": "Done",
-                            "checkbox": {
-                                "equals": False
-                            }
-                        },
-                        {
-                            "property": "Kanban - State",
-                            "select": {
-                                "equals": "Done"
-                            }
-                        },
-                        {
-                            "property": "Task",
-                            "title": {
-                                "is_not_empty": True
-                            }
-                        },    
-                    ]
-                }
-            ]       
-        }
-    }
+filter_done_conflict_tasks = {
+        "or": [
+            {
+                "and": [
+                    {
+                        "property": "Done",
+                        "checkbox": {
+                            "equals": True
+                        }
+                    },
+                    {
+                        "property": "Kanban - State",
+                        "select": {
+                            "does_not_equal": "Done"
+                        }
+                    },
+                    {
+                        "property": "Task",
+                        "title": {
+                            "is_not_empty": True
+                        }
+                    },     
+                ]
+            },
+            {
+                "and": [
+                    {
+                        "property": "Done",
+                        "checkbox": {
+                            "equals": False
+                        }
+                    },
+                    {
+                        "property": "Kanban - State",
+                        "select": {
+                            "equals": "Done"
+                        }
+                    },
+                    {
+                        "property": "Task",
+                        "title": {
+                            "is_not_empty": True
+                        }
+                    },    
+                ]
+            }
+        ]       
+}
 
-    return body
 
 """ 
 PROPERTIES DEFINITIONS

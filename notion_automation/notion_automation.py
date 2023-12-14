@@ -5,7 +5,8 @@ import logging
 import json
 from typing import Callable
 from notion_client import Client
-import old_notion_automation as old_na
+#import old_notion_automation as old_na
+import notion_automation.old_notion_automation as old_na
 
 """
 
@@ -47,11 +48,11 @@ def getDbMembers(client: Client, db_id: str, body_filter: dict) -> list:
     return results
 
 
-def updateDbItems(client: Client,
-             db_id: str,
-             token: str,
-             filt_get: Callable,
-             filt_set: Callable):
+def updateDbItems(
+        client: Client,
+        db_id: str,
+        filt_get: dict,
+        filt_set: Callable):
     """_summary_
 
     Args:
@@ -61,18 +62,19 @@ def updateDbItems(client: Client,
         filt_get (Callable): _description_
         filt_set (Callable): _description_
     """
-    
-    tasks_raw = getDbMembers(notion, db_id, filt_get)
+
+    tasks_raw = getDbMembers(client, db_id, filt_get)
     logging.debug(f'tasks_raw = {json.dumps(tasks_raw, indent=4)}')
+    #json.dumps(tasks_raw, indent=4)
     
     #TODO get rid of this old method of filtering out JSON into properties
     # it's only necessary to pass in a stripped list of properties into
     #   the filt_set body function (for now)
     tasks = [old_na._extractParameters(task) for task in tasks_raw]
-    logging.debug(f'tasks = {json.dumps(tasks, indent=4)}')
+    logging.info(f'tasks = {json.dumps(tasks, indent=4)}')
       
     # Update tasks
     for task in tasks:
         filt = filt_set(task)
         logging.debug(f'filt_set = {json.dumps(filt, indent=4)}')
-        client.pages.update(db_id, filt)
+        client.pages.update(task.get('id'), **filt)

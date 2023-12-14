@@ -6,7 +6,7 @@ import requests
 import datetime
 import os
 from os.path import join
-import notion_client.body_params as params
+import notion_automation.body_params as params
 
 LOGS_FOLDER = 'logs'
 
@@ -30,7 +30,7 @@ Some things are just hard coded if they don't exist
 :param task_raw: JSON object with raw params for that notion page
 """
 def _extractParameters(task_raw):
-    task_id = task_raw['id']
+    id = task_raw['id']
     properties = task_raw['properties']
     done = properties['Done']['checkbox']
     task_name = properties['Task']['title'][0]['text']['content']
@@ -73,7 +73,7 @@ def _extractParameters(task_raw):
         'kanban_state': kanban_state,
         'done': done,
         'recurring_priority': recurring_priority,
-        'task_id': task_id
+        'id': id
     }
 
 def getTasks(token, db_id, json_filter, log_file):
