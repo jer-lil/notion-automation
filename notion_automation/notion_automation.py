@@ -27,6 +27,14 @@ def createLogFile(folder_base: str, subfolder:str, filename:str) -> str:
     os.makedirs(log_folder, exist_ok=True)
     return os.path.join(log_folder, filename) 
 
+def _writeToFile(file, contents):
+    with open(file, mode='w+') as f:
+        json.dump(contents, f, indent=4)
+
+def _readFromFile(file):
+    with open(file, mode='r') as f:
+        res = json.load(f)
+    return res
 
 def getDbMembers(client: Client, db_id: str, body_filter: dict) -> list:
     """ Returns list of database members matching body_filter
