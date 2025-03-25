@@ -41,7 +41,7 @@ jobs:
           python db_update.py "$TOKEN" "$DB_ID" "$DB_NAME"
 
       - name: upload artifacts  
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with: 
           name: logs
           path: logs/
